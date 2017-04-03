@@ -1,0 +1,26 @@
+.fw-h {
+  font-weight: 300;
+}
+
+.fw-l {
+  font-weight: 100;
+}
+
+.fs-xxl {
+  font-size: xx-large;
+}
+
+.fs-xs {
+  font-size: x-small;
+}
+
+.day-header {
+  font-size: small;
+  background: #efefef;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.c-pad {
+  padding-left: 10px;
+  padding-right: 10px;
+}
