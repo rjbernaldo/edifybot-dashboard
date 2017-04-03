@@ -1,0 +1,8 @@
+{
+  "name": "edifybot-dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:rjbernaldo/edifybot-dashboard.git",
+  "author": "Rj Bernaldo <rj.bernaldo@gmail.com>",
+  "license": "MIT"
+}
