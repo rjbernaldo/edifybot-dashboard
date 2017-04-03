@@ -1,7 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
+import CurrentGraph from '../containers/CurrentGraph'
+import CurrentExpenses from '../containers/CurrentExpenses'
 
-ReactDOM.render(
+const App = (state, dispatch) => {
+  return (
+    <div>
+      <CurrentGraph />
+      <CurrentExpenses />
+    </div>
+  )
+}
+
+export default App
+
+
   <div>
     <ul className="list-unstyled">
       <li className="media c-pad day-header">
@@ -18,5 +30,3 @@ ReactDOM.render(
       </li>
     </ul>
   </div>,
-  document.getElementById('app')
-)
