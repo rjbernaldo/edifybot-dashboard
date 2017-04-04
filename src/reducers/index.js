@@ -1,4 +1,10 @@
 import { combineReducers } from 'redux'
 import user from './user'
-import expenses from './expenses'
-import graph from './graph'
+import days from './days'
+import summary from './summary'
+
+export default combineReducers({
+  user,
+  days,
+  summary
+})

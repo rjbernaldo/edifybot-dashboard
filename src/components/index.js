@@ -1,14 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Root from './Root'
+
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { Router, Route, browserHistory } from 'react-router'
+import thunk from 'redux-thunk'
 
 import reducers from '../reducers'
-import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
+import CurrentApp from '../containers/CurrentApp'
 
-const store = createStore(reducers, applyMiddleware(thunkMiddleware))
+const store = createStore(reducers, applyMiddleware(thunk))
 
 ReactDOM.render(
-  <Root store={ store }/>,
+  <Provider store={ store }>
+    <Router history={ browserHistory }>
+      <Route path="/(:senderId)" component={ CurrentApp } />
+    </Router>
+  </Provider>,
   document.getElementById('app')
 )
