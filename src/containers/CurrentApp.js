@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import App from '../components/App'
+import { fetchData } from '../actions/api'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -7,7 +8,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: senderId => {
+      dispatch(fetchData(senderId))
+    }
+  }
 }
 
 const CurrentApp = connect(mapStateToProps)(App)
