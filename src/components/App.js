@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import CurrentSummary from '../containers/CurrentSummary'
 import CurrentDays from '../containers/CurrentDays'
 
-const App = ({ senderId }) => {
+const App = ({ fetchData, senderId }) => {
+  fetchData(senderId)
+  
   return (
     <div>
       <CurrentSummary />

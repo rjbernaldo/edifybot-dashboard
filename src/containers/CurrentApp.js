@@ -16,6 +16,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const CurrentApp = connect(mapStateToProps)(App)
+const CurrentApp = connect(mapStateToProps, mapDispatchToProps)(App)
 
 export default CurrentApp

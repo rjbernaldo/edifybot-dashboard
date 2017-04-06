@@ -5,6 +5,7 @@ export default function (state = 'Fetching data', action) {
     case LOADING:
       return 'Fetching data'
     case ERROR:
+      console.log('hasErrored:reducer', action.err)
       return action.err
     default:
       return state

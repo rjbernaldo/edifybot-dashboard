@@ -1,17 +1,23 @@
 import { isLoading, hasErrored } from './status'
 import { setUser } from './user'
-import { setExpenses } from './expenses'
+import { setDays } from './days'
+import { setSummary } from './summary'
 
 export function fetchData(senderId) {
   return dispatch => {
-    dispatch(isLoading())
+    if (senderId) {
+      dispatch(isLoading())
+      
+      return dispatch(fetchUser(senderId))
+        .then(dispatch(fetchExpenses(senderId)))
+        .then(dispatch(fetchSummary(senderId)))
+    }
     
-    return dispatch(fetchUser(senderId))
-      .then(dispatch(fetchExpenses(senderId)))
+    return dispatch(hasErrored('No sender id'))
   }
 }
 
-export function fetchUser(senderId) {
+function fetchUser(senderId) {
   return dispatch => {
     let url = `http://localhost:3000/users/${senderId}`
     
@@ -34,17 +40,30 @@ export function fetchUser(senderId) {
   }
 }
 
-export function fetchExpenses(senderId) {
+function fetchExpenses(senderId) {
   return dispatch => {
     let url = `http://localhost:3000/users/${senderId}/expenses`
     
     return fetch(url)
       .then(res => res.json())
       .then(json => {
-        dispatch(setExpenses(json)})
+        dispatch(setDays(parseExpenses(json)))
       })
       .catch(err => {
         dispatch(hasErrored(err))
       })
   }
+}
+
+function fetchSummary(senderId) {
+  return dispatch => {
+    let url = `http://localhost:3000/users/${senderId}/summary`
+    
+    let json = []
+    dispatch(setSummary(json))
+  }
+}
+
+function parseExpenses(json) {
+  
 }
