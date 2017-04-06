@@ -1,12 +1,17 @@
-import { LOADING, ERROR } from '../actions/status'
+import { LOADING, ERROR, SUCCESS } from '../actions/status'
 
-export default function (state = 'Fetching data', action) {
+const initialState = {
+  fetchData: true
+}
+
+export default function (state = initialState, action) {
   switch(action.type) {
     case LOADING:
-      return 'Fetching data'
+      return { loading: true, message: 'Loading' }
     case ERROR:
-      console.log('hasErrored:reducer', action.err)
-      return action.err
+      return { loading: false, error: true, message: action.err }
+    case SUCCESS:
+      return { loading: false }
     default:
       return state
   }

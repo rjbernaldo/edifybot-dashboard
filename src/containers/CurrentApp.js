@@ -4,7 +4,8 @@ import { fetchData } from '../actions/api'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    senderId: ownProps.params.senderId
+    senderId: ownProps.params.senderId,
+    status: state.status
   }
 }
 

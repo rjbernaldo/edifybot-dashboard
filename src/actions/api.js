@@ -1,19 +1,24 @@
-import { isLoading, hasErrored } from './status'
+import { isLoading, hasErrored, isSuccess } from './status'
 import { setUser } from './user'
 import { setDays } from './days'
 import { setSummary } from './summary'
 
 export function fetchData(senderId) {
-  return dispatch => {
+  return (dispatch, getState) => {
     if (senderId) {
       dispatch(isLoading())
       
-      return dispatch(fetchUser(senderId))
-        .then(dispatch(fetchExpenses(senderId)))
-        .then(dispatch(fetchSummary(senderId)))
+      dispatch(fetchUser(senderId))
+        .then(() => {
+          return dispatch(fetchExpenses(senderId))
+        })
+        // .then(dispatch(fetchSummary()))
+        .catch(err => {
+          console.log(1, err)
+        })
+    } else {
+      dispatch(hasErrored('No sender id'))
     }
-    
-    return dispatch(hasErrored('No sender id'))
   }
 }
 
@@ -23,35 +28,32 @@ function fetchUser(senderId) {
     
     return fetch(url)
       .then(res => res.json())
-      .then(json => {
-        dispatch(setUser(json))
+      .then(res => {
+        dispatch(setUser(res))
       })
       .catch(err => {
-        dispatch(hasErrored(err))
+        dispatch(hasErrored(`Invalid user "${senderId}"`))
       })
-      // .then((res) => {
-      //   if (!res.ok) throw Error(res.statusText)
-      //   
-      //   return res
-      // })
-      // .then(res => res.json())
-      // .then(json => dispatch(receiveUserData(json)))
-      // .catch((err) => { console.log(err) })
   }
 }
 
 function fetchExpenses(senderId) {
-  return dispatch => {
+  return (dispatch, getState) => {
     let url = `http://localhost:3000/users/${senderId}/expenses`
     
-    return fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        dispatch(setDays(parseExpenses(json)))
-      })
-      .catch(err => {
-        dispatch(hasErrored(err))
-      })
+    if (senderId)
+      return fetch(url)
+        .then(res => res.json())
+        .then(res => {
+          dispatch(setDays(parseExpenses(res)))
+        })
+        .then(() => {
+          dispatch(isSuccess())
+        })
+        .catch(err => {
+          console.log(err)
+          dispatch(hasErrored(`No expenses found?`))
+        })
   }
 }
 
@@ -65,5 +67,8 @@ function fetchSummary(senderId) {
 }
 
 function parseExpenses(json) {
-  
+  console.log(json)
+  return [
+    
+  ]
 }
