@@ -4,7 +4,8 @@ import Day from '../components/Day'
 const mapStateToProps = (state, ownProps) => {
   return {
     pDate: pDate(ownProps.day.date),
-    pAmount: pAmount(state.user.currency_symbol, cTotal(ownProps.day.expenses))
+    pAmount: pAmount(state.user.currency_symbol, cTotal(ownProps.day.expenses)),
+    expenses: ownProps.day.expenses
   }
 }
 
@@ -29,7 +30,7 @@ function pDate(date) {
 }
 
 function pAmount(symbol, amount) {
-  return symbol || '$' + (amount).toFixed(2)
+  return symbol || '$' + (parseFloat(amount)).toFixed(2)
 }
 
 function cTotal(expenses) {

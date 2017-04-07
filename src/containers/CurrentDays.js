@@ -7,9 +7,6 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-}
-
 const CurrentDays = connect(mapStateToProps)(Days)
 
 export default CurrentDays
