@@ -14,7 +14,7 @@ export function fetchData(senderId) {
         })
         // .then(dispatch(fetchSummary()))
         .catch(err => {
-          console.log(1, err)
+          dispatch(hasErrored(`Error: Unknown`))
         })
     } else {
       dispatch(hasErrored('No sender id'))
@@ -51,8 +51,7 @@ function fetchExpenses(senderId) {
           dispatch(isSuccess())
         })
         .catch(err => {
-          console.log(err)
-          dispatch(hasErrored(`No expenses found?`))
+          dispatch(hasErrored(`Unknown error occured`))
         })
   }
 }
@@ -67,8 +66,31 @@ function fetchSummary(senderId) {
 }
 
 function parseExpenses(json) {
-  console.log(json)
-  return [
+  var dayList = {}
+  var days = []
+  
+  // console.log(json)
+  
+  json.forEach((expense) => {
+    let fDate = new Date(expense.created_at)
+    let day = fDate.getDate()
+    let month = fDate.getMonth() + 1
+    let year = fDate.getFullYear()
+    let formattedDateName = `${day}-${month}-${year}`
     
-  ]
+    if (Array.isArray(dayList[formattedDateName])) {
+      dayList[formattedDateName].push(expense)
+    } else {
+      dayList[formattedDateName] = [expense]
+    }
+  })
+  
+  for (var day in dayList) {
+    days.push({
+      day,
+      expenses: dayList[day]
+    })
+  }
+  
+  return { days }
 }

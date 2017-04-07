@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-const Days = () => {
+const Days = ({ days }) => {
+  console.log(days)
   return (
     <div>
       <ul className="list-unstyled">
