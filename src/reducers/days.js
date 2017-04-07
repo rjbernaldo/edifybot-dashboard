@@ -5,7 +5,7 @@ const initialState = []
 export default function (state = initialState, action) {
   switch(action.type) {
     case SET_DAYS:
-      return Object.assign({}, state, action.days)
+      return action.days
     default:
       return state
   }

@@ -32,6 +32,7 @@ function fetchUser(senderId) {
         dispatch(setUser(res))
       })
       .catch(err => {
+        console.log(err)
         dispatch(hasErrored(`Invalid user "${senderId}"`))
       })
   }
@@ -51,6 +52,7 @@ function fetchExpenses(senderId) {
           dispatch(isSuccess())
         })
         .catch(err => {
+          console.log(err)
           dispatch(hasErrored(`Unknown error occured`))
         })
   }
@@ -69,14 +71,12 @@ function parseExpenses(json) {
   var dayList = {}
   var days = []
   
-  // console.log(json)
-  
   json.forEach((expense) => {
     let fDate = new Date(expense.created_at)
+    let month = fDate.getMonth()
     let day = fDate.getDate()
-    let month = fDate.getMonth() + 1
     let year = fDate.getFullYear()
-    let formattedDateName = `${day}-${month}-${year}`
+    let formattedDateName = `${month}-${day}-${year}`
     
     if (Array.isArray(dayList[formattedDateName])) {
       dayList[formattedDateName].push(expense)
@@ -85,12 +85,12 @@ function parseExpenses(json) {
     }
   })
   
-  for (var day in dayList) {
+  for (var date in dayList) {
     days.push({
-      day,
-      expenses: dayList[day]
+      date,
+      expenses: dayList[date]
     })
   }
   
-  return { days }
+  return days
 }
