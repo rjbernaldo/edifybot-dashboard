@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 
 const Summary = () => {
   return (
-    <div>
-      No Summary yet
-    </div>
+    <div className="text-center">No summary available</div>
   )
 }
 
