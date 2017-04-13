@@ -3,6 +3,8 @@ import { setUser } from './user'
 import { setDays } from './days'
 import { setSummary } from './summary'
 
+const API_URL = 'https://api.edifybot.com'
+
 export function fetchData(senderId) {
   return (dispatch, getState) => {
     if (senderId) {
@@ -24,7 +26,7 @@ export function fetchData(senderId) {
 
 function fetchUser(senderId) {
   return dispatch => {
-    let url = `http://localhost:3000/users/${senderId}`
+    let url = `${API_URL}/users/${senderId}`
     
     return fetch(url)
       .then(res => res.json())
@@ -40,7 +42,7 @@ function fetchUser(senderId) {
 
 function fetchExpenses(senderId) {
   return (dispatch, getState) => {
-    let url = `http://localhost:3000/users/${senderId}/expenses`
+    let url = `${API_URL}/users/${senderId}/expenses`
     
     if (senderId)
       return fetch(url)
@@ -60,7 +62,7 @@ function fetchExpenses(senderId) {
 
 function fetchSummary(senderId) {
   return dispatch => {
-    let url = `http://localhost:3000/users/${senderId}/summary`
+    let url = `${API_URL}/users/${senderId}/summary`
     
     let json = []
     dispatch(setSummary(json))
