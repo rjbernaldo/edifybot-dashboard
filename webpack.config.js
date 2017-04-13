@@ -27,7 +27,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'edifybot'
+      template: 'src/index.html'
     })
   ]
 }
