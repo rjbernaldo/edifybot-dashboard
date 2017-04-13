@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && http-server ./dist",
-    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.config.js --host 0.0.0.0 --hot --inline",
-    "build": "webpack --config ./webpack.config.js"
+    "dev": "node_modules/.bin/webpack-dev-server --config ./webpack.config.js --host 0.0.0.0 --hot --inline",
+    "build": "node_modules/.bin/webpack --config ./webpack.config.js"
   },
   "repository": "git@github.com:rjbernaldo/edifybot-dashboard.git",
   "author": "Rj Bernaldo <rj.bernaldo@gmail.com>",
