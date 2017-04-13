@@ -30,7 +30,7 @@ function pDate(date) {
 }
 
 function pAmount(symbol, amount) {
-  return symbol || '$' + (parseFloat(amount)).toFixed(2)
+  return (symbol || '$') + (parseFloat(amount)).toFixed(2)
 }
 
 function cTotal(expenses) {
