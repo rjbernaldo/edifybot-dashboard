@@ -64,7 +64,7 @@ export function deleteData(data) {
         dispatch(deleteExpense(expense))
       }).catch(err => {
         console.log(err)
-        dispatch(hasErrored('Error: Unable to update expense'))
+        dispatch(hasErrored('Error: Unable to delete expense'))
       })
   }
 }

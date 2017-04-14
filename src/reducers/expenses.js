@@ -10,9 +10,9 @@ export default function (state = initialState, action) {
       return state.map(e => {
         if (e.id === action.expense.id) {
           return action.expense
-        } else {
-          return e
         }
+        
+        return e
       })
     case DELETE_EXPENSE:
       let index = state.findIndex(x => x.id === action.expense.id)

@@ -12,16 +12,19 @@ const Modal = ({ modal, hideModal, saveData, deleteData }) => {
             </button>
           </div>
           <div className="modal-body">
-            <input type="text" className="form-control" defaultValue={ modal.item }></input>
+            <input type="text" className="form-control" defaultValue={ modal.item }
+              onChange={ e => { modal.item = e.target.value } }></input>
             <br/>
             <div className="input-group">
               <span className="input-group-addon">$</span>
-              <input type="text" className="form-control" defaultValue={ modal.amount }></input>
+              <input type="text" className="form-control" defaultValue={ modal.amount }
+              onChange={ e => { modal.amount = e.target.value } }></input>
             </div>
             <br/>
             <div className="input-group">
               <span className="input-group-addon">#</span>
-              <input type="text" className="form-control" defaultValue={ modal.category }></input>
+              <input type="text" className="form-control" defaultValue={ modal.category }
+              onChange={ e => { modal.category = e.target.value } }></input>
             </div>
           </div>
           <div className="modal-footer">
