@@ -15,7 +15,6 @@ export default function (state = initialState, action) {
         }
       })
     case DELETE_EXPENSE:
-      console.log(action.expense)
       let index = state.findIndex(x => x.id === action.expense.id)
       return [
         ...state.slice(0, index),
