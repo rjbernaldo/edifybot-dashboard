@@ -27,7 +27,7 @@ export function fetchData(senderId) {
 
 export function saveData(data) {
   return (dispatch, getState) => {
-    let { user, days } = getState()
+    let { user } = getState()
     let url = `${API_URL}/users/${user.sender_id}/expenses/${data.id}`
     
     return fetch(url, {
@@ -48,7 +48,7 @@ export function saveData(data) {
 }
 
 export function deleteData(data) {
-  
+  return (dispatch)
 }
 
 function fetchUser(senderId) {
