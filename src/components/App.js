@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import CurrentSummary from '../containers/CurrentSummary'
 import CurrentDays from '../containers/CurrentDays'
+import CurrentModal from '../containers/CurrentModal'
 
-const App = ({ fetchData, senderId, status }) => {
+const App = ({ fetchData, senderId, showModal, status }) => {
   if (status.fetchData) fetchData(senderId)
   
   if (status.error || status.loading) {
@@ -14,6 +15,7 @@ const App = ({ fetchData, senderId, status }) => {
       <div>
         <CurrentSummary />
         <CurrentDays />
+        { showModal ? <CurrentModal /> : <span /> }
       </div>
     )
   }
