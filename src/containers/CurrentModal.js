@@ -1,13 +1,11 @@
 import { connect } from 'react-redux'
 import Modal from '../components/Modal'
 import { hideModal } from '../actions/modal'
-// import { saveData } from '../actions/api'
+import { saveData, deleteData } from '../actions/api'
 
 const mapStateToProps = state => {
   return {
-    item: state.modal.item,
-    category: state.modal.category,
-    amount: state.modal.amount
+    modal: state.modal
   }
 }
 
@@ -15,10 +13,13 @@ const mapDispatchToProps = dispatch => {
   return {
     hideModal: () => {
       dispatch(hideModal())
+    },
+    saveData: (modal) => {
+      dispatch(saveData(modal)).then(dispatch(hideModal()))
+    },
+    deleteData: (modal) => {
+      dispatch(deleteData(modal)).then(dispatch(hideModal()))
     }
-    // saveModal: (data) => {
-    //   dispatch(saveData(data))
-    // }
   }
 }
 

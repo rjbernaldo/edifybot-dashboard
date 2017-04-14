@@ -1,12 +1,13 @@
 import { isLoading, hasErrored, isSuccess } from './status'
+import { hideModal } from './modal'
 import { setUser } from './user'
-import { setDays } from './days'
+import { setExpenses, updateExpense } from './expenses'
 import { setSummary } from './summary'
 
 const API_URL = 'https://api.edifybot.com'
 
 export function fetchData(senderId) {
-  return (dispatch, getState) => {
+  return dispatch => {
     if (senderId) {
       dispatch(isLoading())
       
@@ -22,6 +23,32 @@ export function fetchData(senderId) {
       dispatch(hasErrored('No sender id'))
     }
   }
+}
+
+export function saveData(data) {
+  return (dispatch, getState) => {
+    let { user, days } = getState()
+    let url = `${API_URL}/users/${user.sender_id}/expenses/${data.id}`
+    
+    return fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ expense: data })
+    })
+      .then(res => res.json())
+      .then((expense) => {
+        dispatch(updateExpense(expense))
+      }).catch(err => {
+        console.log(err)
+        dispatch(hasErrored('Error: Unable to update expense'))
+      })
+  }
+}
+
+export function deleteData(data) {
+  
 }
 
 function fetchUser(senderId) {
@@ -48,7 +75,7 @@ function fetchExpenses(senderId) {
       return fetch(url)
         .then(res => res.json())
         .then(res => {
-          dispatch(setDays(parseExpenses(res)))
+          dispatch(setExpenses(res))
         })
         .then(() => {
           dispatch(isSuccess())
@@ -69,30 +96,3 @@ function fetchSummary(senderId) {
   }
 }
 
-function parseExpenses(json) {
-  var dayList = {}
-  var days = []
-  
-  json.forEach((expense) => {
-    let fDate = new Date(expense.created_at)
-    let month = fDate.getMonth()
-    let day = fDate.getDate()
-    let year = fDate.getFullYear()
-    let formattedDateName = `${month}-${day}-${year}`
-    
-    if (Array.isArray(dayList[formattedDateName])) {
-      dayList[formattedDateName].push(expense)
-    } else {
-      dayList[formattedDateName] = [expense]
-    }
-  })
-  
-  for (var date in dayList) {
-    days.push({
-      date,
-      expenses: dayList[date]
-    })
-  }
-  
-  return days
-}

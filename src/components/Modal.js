@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const Modal = ({ item, amount, category, hideModal }) => {
+const Modal = ({ modal, hideModal, saveData, deleteData }) => {
   return (
     <div className="modal show always-show">
       <div className="modal-dialog">
@@ -12,21 +12,21 @@ const Modal = ({ item, amount, category, hideModal }) => {
             </button>
           </div>
           <div className="modal-body">
-            <input type="text" className="form-control" defaultValue={ item }></input>
+            <input type="text" className="form-control" defaultValue={ modal.item }></input>
             <br/>
             <div className="input-group">
               <span className="input-group-addon">$</span>
-              <input type="text" className="form-control" defaultValue={ amount }></input>
+              <input type="text" className="form-control" defaultValue={ modal.amount }></input>
             </div>
             <br/>
             <div className="input-group">
               <span className="input-group-addon">#</span>
-              <input type="text" className="form-control" defaultValue={ category }></input>
+              <input type="text" className="form-control" defaultValue={ modal.category }></input>
             </div>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={ hideModal }>Close</button>
-            <button type="button" className="btn btn-primary">Save changes</button>
+            <button type="button" className="btn btn-danger" onClick={ () => { deleteData(modal) } }>Delete</button>
+            <button type="button" className="btn btn-primary" onClick={ () => { saveData(modal) } }>Save</button>
           </div>
         </div>
       </div>
