@@ -1,4 +1,4 @@
-import { SET_EXPENSES, UPDATE_EXPENSE } from '../actions/expenses'
+import { SET_EXPENSES, UPDATE_EXPENSE, DELETE_EXPENSE } from '../actions/expenses'
 
 const initialState = []
 
@@ -14,6 +14,13 @@ export default function (state = initialState, action) {
           return e
         }
       })
+    case DELETE_EXPENSE:
+      console.log(action.expense)
+      let index = state.findIndex(x => x.id === action.expense.id)
+      return [
+        ...state.slice(0, index),
+        ...state.slice(index + 1)
+      ]
     default:
       return state
   }

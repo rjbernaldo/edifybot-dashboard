@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import Days from '../components/Days'
 
 const mapStateToProps = state => {
-  console.log(state.expenses)
   return {
     days: parseExpenses(state.expenses)
   }

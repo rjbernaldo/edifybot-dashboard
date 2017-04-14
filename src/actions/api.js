@@ -1,7 +1,7 @@
 import { isLoading, hasErrored, isSuccess } from './status'
 import { hideModal } from './modal'
 import { setUser } from './user'
-import { setExpenses, updateExpense } from './expenses'
+import { setExpenses, updateExpense, deleteExpense } from './expenses'
 import { setSummary } from './summary'
 
 const API_URL = 'https://api.edifybot.com'
@@ -48,7 +48,25 @@ export function saveData(data) {
 }
 
 export function deleteData(data) {
-  return (dispatch)
+  return (dispatch, getState) => {
+    let { user } = getState()
+    let url = `${API_URL}/users/${user.sender_id}/expenses/${data.id}`
+    
+    return fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ expense: data })
+    })
+      .then(res => res.json())
+      .then((expense) => {
+        dispatch(deleteExpense(expense))
+      }).catch(err => {
+        console.log(err)
+        dispatch(hasErrored('Error: Unable to update expense'))
+      })
+  }
 }
 
 function fetchUser(senderId) {
