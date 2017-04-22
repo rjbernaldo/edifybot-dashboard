@@ -7,11 +7,11 @@ const initialState = {
 export default function (state = initialState, action) {
   switch(action.type) {
     case LOADING:
-      return { loading: true, message: 'Loading' }
+      return Object.assign({}, state, { fetchData: false, loading: true, message: 'Loading' })
     case ERROR:
-      return { loading: false, error: true, message: action.err }
+      return Object.assign({}, state, { fetchData: false, loading: false, error: true, message: action.err })
     case SUCCESS:
-      return { loading: false }
+      return Object.assign({}, state, { fetchData: false, loading: false })
     default:
       return state
   }

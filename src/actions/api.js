@@ -6,18 +6,17 @@ import { setSummary } from './summary'
 
 const API_URL = process.env.API_URL
 
-export function fetchData(senderId) {
+export function fetchData(accessKey) {
   return dispatch => {
-    if (senderId) {
+    if (accessKey) {
       dispatch(isLoading())
       
-      dispatch(fetchUser(senderId))
-        .then(() => {
-          return dispatch(fetchExpenses(senderId))
-        })
-        // .then(dispatch(fetchSummary()))
+      dispatch(fetchUser(accessKey))
+        .then(() => dispatch(fetchExpenses()))
+        .then(() => dispatch(isSuccess()))
         .catch(err => {
-          dispatch(hasErrored(`Error: Unknown`))
+          console.log(err)
+          dispatch(hasErrored(err.message))
         })
     } else {
       dispatch(hasErrored('No sender id'))
@@ -28,7 +27,7 @@ export function fetchData(senderId) {
 export function saveData(data) {
   return (dispatch, getState) => {
     let { user } = getState()
-    let url = `${API_URL}/users/${user.sender_id}/expenses/${data.id}`
+    let url = `${API_URL}/users/${user.access_key}/expenses/${data.id}`
     
     return fetch(url, {
       method: 'PATCH',
@@ -50,7 +49,7 @@ export function saveData(data) {
 export function deleteData(data) {
   return (dispatch, getState) => {
     let { user } = getState()
-    let url = `${API_URL}/users/${user.sender_id}/expenses/${data.id}`
+    let url = `${API_URL}/users/${user.access_key}/expenses/${data.id}`
     
     return fetch(url, {
       method: 'DELETE',
@@ -69,48 +68,33 @@ export function deleteData(data) {
   }
 }
 
-function fetchUser(senderId) {
+function fetchUser(accessKey) {
   return dispatch => {
-    let url = `${API_URL}/users/${senderId}`
+    let url = `${API_URL}/users/${accessKey}`
     
     return fetch(url)
       .then(res => res.json())
       .then(res => {
+        if (res.error) throw new Error(res.error)
+        
         dispatch(setUser(res))
-      })
-      .catch(err => {
-        console.log(err)
-        dispatch(hasErrored(`Invalid user "${senderId}"`))
       })
   }
 }
 
-function fetchExpenses(senderId) {
+function fetchExpenses() {
   return (dispatch, getState) => {
-    let url = `${API_URL}/users/${senderId}/expenses`
+    let accessKey = getState().user.access_key
+    let url = `${API_URL}/users/${accessKey}/expenses`
     
-    if (senderId)
+    if (accessKey) {
       return fetch(url)
         .then(res => res.json())
         .then(res => {
+          if (res.error) throw new Error(res.error)
+          
           dispatch(setExpenses(res))
         })
-        .then(() => {
-          dispatch(isSuccess())
-        })
-        .catch(err => {
-          console.log(err)
-          dispatch(hasErrored(`Unknown error occured`))
-        })
+    }
   }
 }
-
-function fetchSummary(senderId) {
-  return dispatch => {
-    let url = `${API_URL}/users/${senderId}/summary`
-    
-    let json = []
-    dispatch(setSummary(json))
-  }
-}
-

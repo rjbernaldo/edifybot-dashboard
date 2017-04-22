@@ -4,7 +4,7 @@ import { fetchData } from '../actions/api'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    senderId: ownProps.params.senderId,
+    accessKey: ownProps.params.accessKey,
     status: state.status,
     showModal: state.modal.visible
   }
@@ -12,8 +12,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: senderId => {
-      dispatch(fetchData(senderId))
+    fetchData: accessKey => {
+      dispatch(fetchData(accessKey))
     }
   }
 }

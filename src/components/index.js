@@ -14,7 +14,7 @@ const store = createStore(reducers, applyMiddleware(thunk))
 ReactDOM.render(
   <Provider store={ store }>
     <Router history={ browserHistory }>
-      <Route path="/(:senderId)" component={ CurrentApp } />
+      <Route path="/(:accessKey)" component={ CurrentApp } />
     </Router>
   </Provider>,
   document.getElementById('app')

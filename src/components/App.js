@@ -3,8 +3,8 @@ import CurrentSummary from '../containers/CurrentSummary'
 import CurrentDays from '../containers/CurrentDays'
 import CurrentModal from '../containers/CurrentModal'
 
-const App = ({ fetchData, senderId, showModal, status }) => {
-  if (status.fetchData) fetchData(senderId)
+const App = ({ fetchData, accessKey, showModal, status }) => {
+  if (status.fetchData) fetchData(accessKey)
   
   if (status.error || status.loading) {
     return (
