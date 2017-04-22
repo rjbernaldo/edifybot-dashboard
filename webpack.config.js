@@ -10,9 +10,7 @@ if (process.env.NODE_ENV === 'production') {
   apiUrl = 'https://api.edifybot.com'
   
   plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    })
+    new webpack.optimize.UglifyJsPlugin()
   )
 }
 
@@ -46,6 +44,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         API_URL: JSON.stringify(apiUrl)
       }
     })
