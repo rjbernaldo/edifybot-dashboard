@@ -4,7 +4,7 @@ import { setUser } from './user'
 import { setExpenses, updateExpense, deleteExpense } from './expenses'
 import { setSummary } from './summary'
 
-const API_URL = 'https://api.edifybot.com'
+const API_URL = process.env.API_URL
 
 export function fetchData(senderId) {
   return dispatch => {
