@@ -1,2 +1,2 @@
-require('./components')
-require('./styles')
+require('./components');
+require('./styles');

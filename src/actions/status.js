@@ -1,22 +1,22 @@
-export const LOADING = 'LOADING'
-export const ERROR = 'ERROR'
-export const SUCCESS = 'SUCCESS'
+export const LOADING = 'LOADING';
+export const ERROR = 'ERROR';
+export const SUCCESS = 'SUCCESS';
 
 export function isLoading() {
   return {
-    type: LOADING
-  }
+    type: LOADING,
+  };
 }
 
 export function hasErrored(err) {
   return {
     type: ERROR,
-    err
-  }
+    err,
+  };
 }
 
 export function isSuccess() {
   return {
-    type: SUCCESS
-  }
+    type: SUCCESS,
+  };
 }

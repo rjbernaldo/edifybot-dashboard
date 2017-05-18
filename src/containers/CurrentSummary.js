@@ -1,13 +1,8 @@
-import { connect } from 'react-redux'
-import Summary from '../components/Summary'
+import { connect } from 'react-redux';
+import Summary from '../components/Summary';
 
-const mapStateToProps = state => {
-  return state
-}
+const mapStateToProps = state => state;
 
-const mapDispatchToProps = dispatch => {
-}
+const CurrentSummary = connect(mapStateToProps)(Summary);
 
-const CurrentSummary = connect(mapStateToProps)(Summary)
-
-export default CurrentSummary
+export default CurrentSummary;

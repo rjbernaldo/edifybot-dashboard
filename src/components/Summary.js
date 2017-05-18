@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-const Summary = () => {
-  return (
-    <div className="text-center">No summary available</div>
-  )
-}
+const Summary = () => (
+  <div className="text-center">No summary available</div>
+);
 
-export default Summary
+export default Summary;
