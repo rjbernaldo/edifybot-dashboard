@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Expense from '../components/Expense';
-import { showModal, hideModal } from '../actions/modal';
+import { showModal } from '../actions/modal';
 
 const mapStateToProps = (state, ownProps) => ({
   expense: ownProps.expense,
